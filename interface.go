@@ -12,8 +12,8 @@ func main() {
 	f := MyTypes.Frog{MyTypes.AMPHIBIAN, "Gavin"}
 
 	MyTypes.TakeMyPetForAWalk(d)
-	fmt.Println();
+	fmt.Println()
 	MyTypes.TakeMyPetForAWalk(s)
-	fmt.Println();
+	fmt.Println()
 	MyTypes.TakeMyPetForAWalk(f)
 }
