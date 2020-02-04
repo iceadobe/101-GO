@@ -1,2 +1,0 @@
-Sample file for resource directory.
-Won't commit any other file besides this one.

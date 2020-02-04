@@ -2,33 +2,13 @@ package mypackage
 
 import (
 	"html/template"
-	"io/ioutil"
 	"net/http"
 )
 
 const (
-	VIEW_PATH string = "resource/views/"
-	PAGE_PATH string = "resource/pages/"
+	VIEW_PATH string = "resources/views/"
+	PAGE_PATH string = "resources/pages/"
 )
-
-type Page struct {
-	Title string
-	Body  []byte
-}
-
-func (p *Page) Save() error {
-	filename := PAGE_PATH + p.Title + ".txt"
-	return ioutil.WriteFile(filename, p.Body, 0600)
-}
-
-func LoadPage(title string) (*Page, error) {
-	filename := PAGE_PATH + title + ".txt"
-	body, err := ioutil.ReadFile(filename)
-	if err != nil {
-		return nil, err
-	}
-	return &Page{Title: title, Body: body}, nil
-}
 
 func renderTemplate(w http.ResponseWriter, tmpl string, p *Page) {
 	t, err := template.ParseFiles(VIEW_PATH + tmpl + ".html")
@@ -43,15 +23,6 @@ func renderTemplate(w http.ResponseWriter, tmpl string, p *Page) {
 }
 
 func ViewHandler(w http.ResponseWriter, r *http.Request) {
-	/*	title := r.URL.Path[len("/views/"):]
-		p, ok := LoadPage(title)
-		if ok != nil {
-			errorPage := Page{"Error Code 404", []byte("Page Not Found")}
-			fmt.Fprintf(w, "<h1>%s</h1><div>%s</div>", errorPage.Title, errorPage.Body)
-		} else {
-			fmt.Fprintf(w, "<h1>%s</h1><div>%s</div>", p.Title, p.Body)
-		}
-	*/
 	title := r.URL.Path[len("/view/"):]
 	p, err := LoadPage(title)
 	if err != nil {
